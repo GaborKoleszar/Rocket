@@ -1,6 +1,5 @@
 package gabor.koleszar.rocket.data.remote
 
-import gabor.koleszar.rocket.data.remote.listings.Listing
 import io.ktor.client.statement.*
 
 interface RedditApi {

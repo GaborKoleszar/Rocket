@@ -11,11 +11,13 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
+    @Singleton
     @Provides
     fun provideKtorClient(): HttpClient {
         return HttpClient() {
@@ -28,12 +30,13 @@ class AppModule {
                 )
             }
             install(Logging) {
-                logger = Logger.DEFAULT
-                level = LogLevel.ALL
+                logger = Logger.ANDROID
+                level = LogLevel.BODY
             }
         }
     }
 
+    @Singleton
     @Provides
     fun provideRedditApi(httpClient: HttpClient): RedditApi {
         return RedditApiImpl(httpClient)
