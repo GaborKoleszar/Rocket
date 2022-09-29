@@ -9,8 +9,7 @@ import gabor.koleszar.rocket.data.remote.RedditApiImpl
 import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
-import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.json.Json
+import io.ktor.serialization.gson.*
 import javax.inject.Singleton
 
 @Module
@@ -22,12 +21,7 @@ class AppModule {
     fun provideKtorClient(): HttpClient {
         return HttpClient() {
             install(ContentNegotiation) {
-                json(
-                    Json {
-                        isLenient = true
-                        ignoreUnknownKeys = true
-                    }
-                )
+                gson()
             }
             install(Logging) {
                 logger = Logger.ANDROID

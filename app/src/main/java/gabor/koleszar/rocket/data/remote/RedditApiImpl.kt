@@ -17,7 +17,7 @@ class RedditApiImpl(
                 protocol = URLProtocol.HTTPS
                 host = BASE_URL
                 path(BEST_LISTING_URL)
-                parameters.append("limit", "1")
+                parameters.append("limit", "5")
             }
             headers {
                 append(
