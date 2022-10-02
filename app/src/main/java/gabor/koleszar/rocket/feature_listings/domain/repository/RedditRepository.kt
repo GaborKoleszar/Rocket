@@ -1,0 +1,3 @@
+package gabor.koleszar.rocket.feature_listings.domain.repository
+
+interface RedditRepository

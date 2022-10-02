@@ -1,14 +1,12 @@
-package gabor.koleszar.rocket.presentation.viewmodels
+package gabor.koleszar.rocket.feature_listings.presentation.viewmodels
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import gabor.koleszar.rocket.data.remote.RedditApi
-import gabor.koleszar.rocket.data.remote.listings.Listing
-import gabor.koleszar.rocket.presentation.states.ListingState
-import io.ktor.client.call.*
+import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi
+import gabor.koleszar.rocket.feature_listings.presentation.states.ListingState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +25,7 @@ class ListingViewModel @Inject constructor(
     private fun loadPosts() {
         viewModelScope.launch {
             _listing.value = listing.value.copy(
-                listOfPosts = (redditApi.getBestListing().body() as Listing).data.children
+                listOfPosts = redditApi.getBestListing(numberOfPosts = 50, after = null)
             )
         }
     }

@@ -1,11 +1,11 @@
-package gabor.koleszar.rocket.di
+package gabor.koleszar.rocket.feature_listings.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import gabor.koleszar.rocket.data.remote.RedditApi
-import gabor.koleszar.rocket.data.remote.RedditApiImpl
+import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi
+import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApiImpl
 import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
@@ -19,7 +19,7 @@ class AppModule {
     @Singleton
     @Provides
     fun provideKtorClient(): HttpClient {
-        return HttpClient() {
+        return HttpClient {
             install(ContentNegotiation) {
                 gson()
             }
