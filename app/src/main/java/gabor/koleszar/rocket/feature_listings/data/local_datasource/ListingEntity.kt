@@ -1,6 +1,11 @@
-package gabor.koleszar.rocket.feature_listings.domain.model
+package gabor.koleszar.rocket.feature_listings.data.local_datasource
 
-data class Post(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class ListingEntity(
+    @PrimaryKey val id: Int? = null,
     val author: String,
     val created: Long,
     val downs: Int,
@@ -14,5 +19,6 @@ data class Post(
     val title: String,
     val ups: Int,
     val url: String,
-    val subreddit: String
+    val subreddit: String,
+    val timestampInserted: Long
 )

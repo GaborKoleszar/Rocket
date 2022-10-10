@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class DataDto(
     val dist: Int,
     @SerializedName("children")
-    val postList: List<InnerDataDto>
+    val children: List<InnerDataDto>
 )

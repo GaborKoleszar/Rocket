@@ -1,19 +1,19 @@
-package gabor.koleszar.rocket.feature_listings.data.remote_datasource.dtos
+package gabor.koleszar.rocket.feature_listings.domain.model
 
-data class PostDto(
+data class Listing(
     val author: String,
     val created: Long,
     val downs: Int,
-    val is_video: Boolean,
+    val isVideo: Boolean,
     val likes: Boolean? = null,
-    val name: String,
-    val num_comments: Int,
+    val numComments: Int,
     val permalink: String,
-    val post_hint: String,
+    val postHint: String,
     val score: Int,
     val selftext: String,
     val title: String,
     val ups: Int,
     val url: String,
-    val subreddit: String
+    val subreddit: String,
+    val timestampInserted: Long
 )

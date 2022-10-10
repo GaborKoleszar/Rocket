@@ -1,22 +1,24 @@
 package gabor.koleszar.rocket.feature_listings.presentation.viewmodels
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi
-import gabor.koleszar.rocket.feature_listings.presentation.states.ListingState
+import gabor.koleszar.rocket.common.Resource
+import gabor.koleszar.rocket.feature_listings.domain.model.Listing
+import gabor.koleszar.rocket.feature_listings.domain.repository.RedditRepository
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ListingViewModel @Inject constructor(
-    private val redditApi: RedditApi
+    private val redditRepository: RedditRepository,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _listing = mutableStateOf(ListingState())
-    val listing: State<ListingState> = _listing
+    val listingList = savedStateHandle.getStateFlow("listingList", emptyList<Listing>())
 
     init {
         loadPosts()
@@ -24,9 +26,14 @@ class ListingViewModel @Inject constructor(
 
     private fun loadPosts() {
         viewModelScope.launch {
-            _listing.value = listing.value.copy(
-                listOfPosts = redditApi.getBestListing(numberOfPosts = 50, after = null)
-            )
+            redditRepository.getListings().onEach { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        savedStateHandle["listingList"] = response.data
+                    }
+                    else -> {}
+                }
+            }.launchIn(this)
         }
     }
 }
