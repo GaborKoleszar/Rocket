@@ -10,12 +10,14 @@ import gabor.koleszar.rocket.feature_listings.domain.repository.RedditRepository
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
 class ListingViewModel @Inject constructor(
     private val redditRepository: RedditRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    val simpleDateFormat: SimpleDateFormat
 ) : ViewModel() {
 
     val listingList = savedStateHandle.getStateFlow("listingList", emptyList<Listing>())

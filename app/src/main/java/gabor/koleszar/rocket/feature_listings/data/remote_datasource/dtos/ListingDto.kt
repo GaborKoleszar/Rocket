@@ -1,6 +1,6 @@
 package gabor.koleszar.rocket.feature_listings.data.remote_datasource.dtos
 
-import gabor.koleszar.rocket.feature_listings.domain.model.Listing
+import gabor.koleszar.rocket.feature_listings.data.local_datasource.ListingEntity
 
 data class ListingDto(
     val author: String,
@@ -19,8 +19,8 @@ data class ListingDto(
     val url: String,
     val subreddit: String
 ) {
-    fun toListing(): Listing {
-        return Listing(
+    fun toListingEntity(): ListingEntity {
+        return ListingEntity(
             author = author,
             created = created,
             downs = downs,

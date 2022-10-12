@@ -1,8 +1,12 @@
 package gabor.koleszar.rocket.feature_listings.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Listing(
     val author: String,
-    val created: Long,
+    val created: String,
     val downs: Int,
     val isVideo: Boolean,
     val likes: Boolean? = null,
@@ -16,4 +20,4 @@ data class Listing(
     val url: String,
     val subreddit: String,
     val timestampInserted: Long
-)
+) : Parcelable

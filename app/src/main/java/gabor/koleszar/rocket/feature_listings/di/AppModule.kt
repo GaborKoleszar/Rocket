@@ -18,6 +18,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Singleton
 
 @Module
@@ -63,8 +65,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideRedditRepository(api: RedditApi, db: RedditDataBase): RedditRepository {
-        return RedditRepositoryImpl(api, db)
+    fun provideRedditRepository(api: RedditApi, db: RedditDataBase, simpleDateFormat: SimpleDateFormat): RedditRepository {
+        return RedditRepositoryImpl(api, db, simpleDateFormat)
     }
 
     @Singleton
@@ -75,5 +77,11 @@ class AppModule {
             RedditDataBase::class.java,
             DATABASE_NAME
         ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSimpleDateFormat(): SimpleDateFormat {
+        return SimpleDateFormat("h:mm", Locale.getDefault())
     }
 }
