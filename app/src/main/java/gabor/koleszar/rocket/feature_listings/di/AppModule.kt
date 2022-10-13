@@ -11,8 +11,8 @@ import gabor.koleszar.rocket.feature_listings.data.local_datasource.RedditDataBa
 import gabor.koleszar.rocket.feature_listings.data.local_datasource.RedditDataBase.Companion.DATABASE_NAME
 import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi
 import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi.Companion.BASE_URL
-import gabor.koleszar.rocket.feature_listings.data.repository.RedditRepositoryImpl
-import gabor.koleszar.rocket.feature_listings.domain.repository.RedditRepository
+import gabor.koleszar.rocket.feature_listings.data.repository.ListingsRepositoryImpl
+import gabor.koleszar.rocket.feature_listings.domain.repository.ListingsRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -65,8 +65,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideRedditRepository(api: RedditApi, db: RedditDataBase, simpleDateFormat: SimpleDateFormat): RedditRepository {
-        return RedditRepositoryImpl(api, db, simpleDateFormat)
+    fun provideRedditRepository(api: RedditApi, db: RedditDataBase, simpleDateFormat: SimpleDateFormat): ListingsRepository {
+        return ListingsRepositoryImpl(api, db, simpleDateFormat)
     }
 
     @Singleton

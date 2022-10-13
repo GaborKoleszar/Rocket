@@ -16,6 +16,6 @@ interface RedditDao {
     @Query("DELETE FROM listingentity")
     suspend fun clearListings()
 
-    @Query("SELECT * FROM listingentity")
-    suspend fun getListings(): List<ListingEntity>
+    @Query("SELECT * FROM listingentity WHERE listingUrl LIKE :listingUrl")
+    suspend fun getListings(listingUrl: String): List<ListingEntity>
 }

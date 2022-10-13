@@ -19,7 +19,7 @@ data class ListingDto(
     val url: String,
     val subreddit: String
 ) {
-    fun toListingEntity(): ListingEntity {
+    fun toListingEntity(listingUrl : String): ListingEntity {
         return ListingEntity(
             author = author,
             created = created,
@@ -35,7 +35,8 @@ data class ListingDto(
             ups = ups,
             url = url,
             subreddit = subreddit,
-            timestampInserted = System.currentTimeMillis()
+            timestampInserted = System.currentTimeMillis(),
+            listingUrl = listingUrl
         )
     }
 }

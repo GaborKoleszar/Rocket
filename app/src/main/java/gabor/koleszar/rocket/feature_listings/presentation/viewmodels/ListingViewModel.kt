@@ -5,22 +5,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import gabor.koleszar.rocket.common.Resource
+import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi.Companion.BEST_LISTING_URL
 import gabor.koleszar.rocket.feature_listings.domain.model.Listing
-import gabor.koleszar.rocket.feature_listings.domain.repository.RedditRepository
+import gabor.koleszar.rocket.feature_listings.domain.repository.ListingsRepository
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import javax.inject.Inject
+
+const val LISTING_LIST = "listingList"
 
 @HiltViewModel
 class ListingViewModel @Inject constructor(
-    private val redditRepository: RedditRepository,
-    private val savedStateHandle: SavedStateHandle,
-    val simpleDateFormat: SimpleDateFormat
+    private val listingsRepository: ListingsRepository,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val listingList = savedStateHandle.getStateFlow("listingList", emptyList<Listing>())
+    val listingList = savedStateHandle.getStateFlow(LISTING_LIST, emptyList<Listing>())
 
     init {
         loadPosts()
@@ -28,10 +29,10 @@ class ListingViewModel @Inject constructor(
 
     private fun loadPosts() {
         viewModelScope.launch {
-            redditRepository.getListings().onEach { response ->
+            listingsRepository.getListings(listingUrl = BEST_LISTING_URL).onEach { response ->
                 when (response) {
                     is Resource.Success -> {
-                        savedStateHandle["listingList"] = response.data
+                        savedStateHandle[LISTING_LIST] = response.data
                     }
                     else -> {}
                 }

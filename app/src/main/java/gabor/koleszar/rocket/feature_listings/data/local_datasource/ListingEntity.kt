@@ -23,7 +23,8 @@ data class ListingEntity(
     val ups: Int,
     val url: String,
     val subreddit: String,
-    val timestampInserted: Long
+    val timestampInserted: Long,
+    val listingUrl: String
 ) {
     fun toListing(simpleDateFormat: SimpleDateFormat): Listing {
         return Listing(

@@ -5,7 +5,8 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [ListingEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class RedditDataBase : RoomDatabase() {
     abstract val redditDao: RedditDao
