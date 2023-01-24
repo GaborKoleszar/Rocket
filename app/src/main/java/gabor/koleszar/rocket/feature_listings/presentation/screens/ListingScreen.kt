@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -29,7 +28,7 @@ import gabor.koleszar.rocket.feature_listings.presentation.viewmodels.ListingVie
 @Composable
 fun ListingScreen(
     navController: NavController,
-    viewModel: ListingViewModel = hiltViewModel()
+    viewModel: ListingViewModel
 ) {
     val listState = rememberLazyListState()
     val listingList by viewModel.listingList.collectAsState()
@@ -89,12 +88,12 @@ fun ListingCard(post: Listing) {
             Text(post.author)
             Text(post.created)
         }
-        BottomIcons()
+        ListingCardBottomIcons()
     }
 }
 
 @Composable
-fun BottomIcons() {
+fun ListingCardBottomIcons() {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
         Icon(
             painter = painterResource(id = R.drawable.ic_baseline_message_24),

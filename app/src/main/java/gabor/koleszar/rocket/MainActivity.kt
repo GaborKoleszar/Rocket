@@ -12,7 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import gabor.koleszar.rocket.feature_listings.presentation.screens.ListingScreen
+import gabor.koleszar.rocket.feature_listings.presentation.screens.HotListingScreen
 import gabor.koleszar.rocket.theme.RocketTheme
 
 @AndroidEntryPoint
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                             startDestination = ScreenNames.ListingsScreen.path
                         ) {
                             composable(route = ScreenNames.ListingsScreen.path) {
-                                ListingScreen(navController = navController)
+                                HotListingScreen(navController = navController)
                             }
                         }
                     }

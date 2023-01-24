@@ -11,8 +11,6 @@ import gabor.koleszar.rocket.feature_listings.data.local_datasource.RedditDataBa
 import gabor.koleszar.rocket.feature_listings.data.local_datasource.RedditDataBase.Companion.DATABASE_NAME
 import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi
 import gabor.koleszar.rocket.feature_listings.data.remote_datasource.RedditApi.Companion.BASE_URL
-import gabor.koleszar.rocket.feature_listings.data.repository.ListingsRepositoryImpl
-import gabor.koleszar.rocket.feature_listings.domain.repository.ListingsRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,7 +22,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+object AppModule {
 
     @Singleton
     @Provides
@@ -47,12 +45,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideHeaderInterceptor(): HeaderInterceptor {
-        return HeaderInterceptor()
-    }
-
-    @Provides
-    @Singleton
     fun provideOkhttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         headerInterceptor: HeaderInterceptor
@@ -61,12 +53,6 @@ class AppModule {
         httpClient.addInterceptor(interceptor = httpLoggingInterceptor)
         httpClient.addInterceptor(interceptor = headerInterceptor)
         return httpClient.build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRedditRepository(api: RedditApi, db: RedditDataBase, simpleDateFormat: SimpleDateFormat): ListingsRepository {
-        return ListingsRepositoryImpl(api, db, simpleDateFormat)
     }
 
     @Singleton
