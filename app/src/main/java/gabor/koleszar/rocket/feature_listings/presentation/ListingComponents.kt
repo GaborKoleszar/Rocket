@@ -1,14 +1,16 @@
-package gabor.koleszar.rocket.feature_listings.presentation.screens
+package gabor.koleszar.rocket.feature_listings.presentation
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
@@ -16,34 +18,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import gabor.koleszar.rocket.R
+import gabor.koleszar.rocket.common.StringUtil
 import gabor.koleszar.rocket.feature_listings.domain.model.Listing
-import gabor.koleszar.rocket.feature_listings.presentation.viewmodels.ListingViewModel
-
-@Composable
-fun ListingScreen(
-    navController: NavController,
-    viewModel: ListingViewModel
-) {
-    val listState = rememberLazyListState()
-    val listingList by viewModel.listingList.collectAsState()
-    if (listingList.isEmpty())
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        }
-    else {
-        LazyColumn(state = listState, modifier = Modifier.fillMaxSize()) {
-            items(items = listingList,
-                itemContent = { post ->
-                    ListingCard(post = post)
-                })
-        }
-    }
-}
 
 @Composable
 fun ListingCard(post: Listing) {
@@ -69,7 +49,7 @@ fun ListingCardTitle(
     modifier: Modifier = Modifier
 ) {
     Text(
-        textShortener(title, 100),
+        StringUtil.textShortener(title, 100),
         modifier = modifier.padding(8.dp),
         fontWeight = FontWeight.Bold
     )
@@ -96,7 +76,7 @@ fun ListingCardContent(
     } else {
         Box(modifier = modifier.padding(12.dp))
         {
-            Text(text = textShortener(post.selftext, 300))
+            Text(text = StringUtil.textShortener(post.selftext, 300))
         }
     }
 }
@@ -140,11 +120,4 @@ fun ListingCardBottomIcons() {
             contentDescription = null,
         )
     }
-}
-
-private fun textShortener(text: String, maxLength: Int): String {
-    return if (text.length <= maxLength)
-        text
-    else
-        text.slice(0..maxLength) + "..."
 }
