@@ -34,7 +34,7 @@ class ListingsRepositoryImpl @Inject constructor(
         emit(Resource.Loading())
 
         val cacheResponse = getCachedResponse(listingUrl)
-        if (cacheResponse.isNotEmpty() && cacheIsFresh(cacheResponse[0].timestampInserted)) {
+        if (cacheResponse != null) {
             emit(Resource.Success(cacheResponse))
         } else {
             try {
@@ -52,12 +52,13 @@ class ListingsRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun cacheIsFresh(timestamp: Long): Boolean {
-        return System.currentTimeMillis() - timestamp < CACHE_EXPIRATION_MILLISECOND
-    }
-
-    private suspend fun getCachedResponse(listingUrl: String): List<Listing> {
-        return redditDb.redditDao.getListings(listingUrl).map { it.toListing(simpleDateFormat) }
+    private suspend fun getCachedResponse(listingUrl: String): List<Listing>? {
+        val cachedResponse =
+            redditDb.redditDao.getListings(listingUrl).map { it.toListing(simpleDateFormat) }
+        if (cachedResponse.isNotEmpty() && System.currentTimeMillis() - cachedResponse[0].timestampInserted < CACHE_EXPIRATION_MILLISECOND)
+            return cachedResponse
+        else
+            return null
     }
 
     private suspend fun getRemoteResponse(
