@@ -50,7 +50,7 @@ fun ListingCardTitle(
 ) {
     Text(
         StringUtil.textShortener(title, 100),
-        modifier = modifier.padding(8.dp),
+        modifier = modifier.padding(16.dp),
         fontWeight = FontWeight.Bold
     )
 }
