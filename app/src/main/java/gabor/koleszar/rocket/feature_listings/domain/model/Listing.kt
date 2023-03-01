@@ -2,11 +2,12 @@ package gabor.koleszar.rocket.feature_listings.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.util.Date
 
 @Parcelize
 data class Listing(
     val author: String,
-    val created: String,
+    val created: Date,
     val downs: Int,
     val isVideo: Boolean,
     val likes: Boolean? = null,

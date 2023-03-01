@@ -26,10 +26,10 @@ data class ListingEntity(
     val timestampInserted: Long,
     val listingUrl: String
 ) {
-    fun toListing(simpleDateFormat: SimpleDateFormat): Listing {
+    fun toListing(): Listing {
         return Listing(
             author = "u/$author",
-            created = simpleDateFormat.format(Date(created * 1000)),
+            created = Date(created * 1000),
             downs = downs,
             isVideo = isVideo,
             likes = likes,
