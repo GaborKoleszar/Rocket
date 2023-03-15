@@ -2,6 +2,11 @@
 <resources>
 
     <style name="Theme.Rocket" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+    </style>
+    
+    <style name="Theme.Rocket.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FF1C1B1E</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/rocketanim</item>
+        <item name="postSplashScreenTheme">@style/Theme.Rocket</item>
     </style>
 </resources>

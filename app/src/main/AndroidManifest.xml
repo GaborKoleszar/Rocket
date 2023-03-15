@@ -11,14 +11,14 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Rocket"
-        tools:targetApi="33">
+        android:theme="@style/Theme.Rocket.Splash"
+        tools:targetApi="33"
+        android:usesCleartextTraffic="true">
         <activity
             android:name="gabor.koleszar.rocket.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Rocket">
+            android:theme="@style/Theme.Rocket.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
