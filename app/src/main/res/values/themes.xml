@@ -6,7 +6,7 @@
     
     <style name="Theme.Rocket.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#FF1C1B1E</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_baby_changing_station_24</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/rocketanim</item>
         <item name="postSplashScreenTheme">@style/Theme.Rocket</item>
     </style>
 </resources>

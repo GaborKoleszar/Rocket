@@ -24,16 +24,11 @@ class ListingViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val listingTypeState = mutableStateOf<ListingTypes>(ListingTypes.BestListingType)
+
     val listingList = savedStateHandle.getStateFlow(SAVED_LIST_STATE_KEY, emptyList<Listing>())
 
-    val testVariable = mutableStateOf(false)
-
-    init {
-        setListingType(ListingTypes.BestListingType)
-    }
-
     private fun loadPosts(listingType: ListingTypes) {
-        Log.d("From viewmodel: ", "testVariable: " + testVariable.value.toString())
+        Log.d("From viewmodel: ", this.toString())
         viewModelScope.launch {
             listingsRepository.getListings(listingUrl = listingType.url).onEach { response ->
                 when (response) {

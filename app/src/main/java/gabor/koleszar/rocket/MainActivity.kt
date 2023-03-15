@@ -1,7 +1,6 @@
 package gabor.koleszar.rocket
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -20,10 +19,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel: ListingViewModel by viewModels()
-        installSplashScreen()
-        viewModel.testVariable.value = true
-        Log.d("From activity: ", "testVariable: " + viewModel.testVariable.value.toString())
+        val listingViewModel: ListingViewModel by viewModels()
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                listingViewModel.listingList.value.isEmpty()
+            }
+        }
+
         setContent {
             RocketTheme {
                 val navController = rememberNavController()
@@ -34,7 +36,8 @@ class MainActivity : ComponentActivity() {
                     composable(route = ScreenNames.ListingsScreen.path) {
                         ListingScreen(
                             listingType = ListingTypes.BestListingType,
-                            navController = navController
+                            navController = navController,
+                            viewModel = listingViewModel
                         )
                     }
                 }
