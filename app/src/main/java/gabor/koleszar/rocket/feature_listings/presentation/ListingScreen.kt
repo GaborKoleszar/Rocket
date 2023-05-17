@@ -28,7 +28,7 @@ fun ListingScreen(
         rememberTopAppBarState()
     )
     val listState = rememberLazyListState()
-    val listingList by viewModel.listingList.collectAsState()
+    val listingList by viewModel.listingItems.collectAsState()
     val context = LocalContext.current
 
     Scaffold(

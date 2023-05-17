@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
         }
 
         splashScreen.setKeepOnScreenCondition {
-                listingViewModel.listingList.value.isEmpty()
+                listingViewModel.listingItems.value.isEmpty()
         }
 
         setContent {
